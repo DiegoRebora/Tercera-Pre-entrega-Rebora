@@ -23,16 +23,19 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="https://www.google.com">Google</a>
-                <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
-                <a class="navbar-brand" href="{% url 'lista_cursos' %}">Cursos</a>
-                <a class="navbar-brand" href="{% url 'lista_estudiantes' %}">Estudiantes</a>
-                <a class="btn btn-primary" href="#signup">Registro</a>
+            
+                <a class="navbar-brand" href="{% url 'inicio' %}">Padelapp</a>
+                <a class="navbar-brand" href="{% url 'listar_jugadores' %}">Jugadores</a>
+                <a class="navbar-brand" href="{% url 'listar_circuitos' %}">Circuitos</a>
+                <a class="navbar-brand" href="{% url 'listar_marcas' %}">Marcas</a>
+                
             </div>
         </nav>
 
         <section style="padding:4rem 3rem;">
             {% block contenido %}
+           
+           
             {% endblock contenido %}
         </section>
 

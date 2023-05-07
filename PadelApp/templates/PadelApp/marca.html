@@ -1,0 +1,21 @@
+{% extends "PadelApp/base.html" %}
+
+{% block contenido %}
+<section>
+    <div>
+      <h1>Marcas</h1>
+      <a href="{% url "crear_marca" %}">Crear marca</a>
+      <br><br>
+      <form action="{% url 'buscar_marca' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="busqueda">
+        <input type="submit" value="Buscar por nombre">
+      </form>
+      <br>
+      <ul>
+      {% for marca in marcas %}
+        <li>{{ marca.nombre }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+{% endblock contenido %}

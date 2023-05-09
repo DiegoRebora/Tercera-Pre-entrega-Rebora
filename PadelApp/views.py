@@ -14,6 +14,13 @@ def inicio(request):
         template_name='PadelApp/base.html',
         context=contexto,
     )
+def inicio2(request):
+    contexto = {}
+    return render(
+        request=request,
+        template_name='PadelApp/inicio.html',
+        context=contexto,
+    )
 
 def listar_jugadores(request):
     jugadores = Jugadores.objects.all()

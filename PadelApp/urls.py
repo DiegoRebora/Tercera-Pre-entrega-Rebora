@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from PadelApp.views import inicio, listar_marca, listar_jugadores, listar_circuito, crear_jugador, \
-    buscar_jugador, crear_circuito, buscar_circuito, crear_marca, buscar_marca
+    buscar_jugador, crear_circuito, buscar_circuito, crear_marca, buscar_marca, inicio2
 urlpatterns = [
-    path("inicio/", inicio, name="inicio" ),
+    path("inicio/", inicio2, name="inicio" ),
     path("marcas/", listar_marca, name="listar_marcas" ),
     path("jugadores/", listar_jugadores, name="listar_jugadores" ),
     path("circuitos/", listar_circuito, name="listar_circuitos" ),

@@ -29,3 +29,6 @@ python manage.py createsuperuser
 + De opta por crear objeto, se abrirá el formulario para la creación de objetos con sus datos.
 + Completado correctamente el formulario, será redirigido al listado de objetos del modelo en cuestión. 
 + De haber errores en el formulario, se mostrará por pantalla en el formulario, que dato debe completarse y como hacerlo correctamente. 
+
+## Versiones
++ Versión 2 creando un nuevo archivo base2.html, desde el que se extienden el resto de los html, como así también un archivo inicio.html

@@ -1,0 +1,21 @@
+{% extends "PadelApp/base2.html" %}
+
+{% block contenido %}
+
+<p>
+  <strong>Nombre:</strong> {{object.nombre}}
+</p>
+<p>
+  <strong>Alcance:</strong> {{object.alcance}}
+</p>
+<p>
+  <strong>Ranking por premios:</strong> {{object.ranking_premios}}
+</p>
+<p>
+  <strong>Cantidad de torneos:</strong> {{object.cant_torneos}}
+</p>
+
+<br>
+<a href="{% url 'listar_circuitos' %}">Volver lista</a>
+
+{% endblock contenido %}

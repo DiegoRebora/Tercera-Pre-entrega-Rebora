@@ -1,10 +1,12 @@
 {% extends "PadelApp/base2.html" %}
 
+
 {% block contenido %}
-<form method="post">
+<form action="{% url 'crear_jugador' %}" method="post">
   {% csrf_token %}
   {{ formulario.as_p }}
   {{ formulario.errors }}
   <input type="submit" value="Enviar" />
 </form>
 {% endblock contenido %}
+

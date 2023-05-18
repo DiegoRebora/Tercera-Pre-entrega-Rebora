@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from datetime import datetime
 from typing import Dict
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from PadelApp.models import Jugadores, Circuito, Marca
 from PadelApp.forms import JugadoresForm, CircuitoForm, MarcaForm
@@ -119,8 +119,10 @@ class SearchMarca(ListView):
         object_list = Marca.objects.filter(nombre__icontains=query)
         return object_list
 
-class MarcaCreateView(LoginRequiredMixin, CreateView):
+class MarcaCreateView(LoginRequiredMixin, PermissionRequiredMixin  , CreateView):
     model = Marca
+    permission_required = "marca.add_marca"
+    template_name = "PadelApp/marca_form.html"
     fields = [ 'nombre', 'origen' ]
     success_url = reverse_lazy('listar_marcas')
 
@@ -132,65 +134,18 @@ class MarcaDetailView(DetailView):
     model = Marca
     success_url = reverse_lazy('listar_marcas')
 
-class MarcaUpdateView(LoginRequiredMixin, UpdateView):
+class MarcaUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Marca
+    permission_required = "marca.change_marca"
+    template_name = "PadelApp/marca_form.html"
     fields = ( "nombre", "origen" )
     success_url = reverse_lazy('listar_marcas')
 
-class MarcaDeleteView(LoginRequiredMixin, DeleteView):
+class MarcaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Marca
+    permission_required = "marca.delete_marca"
+    template_name = "PadelApp/marca_confirm_delete.html"
     success_url = reverse_lazy('listar_marcas')
 
-"""
-def listar_marca(request):
-    contexto = {'marcas': Marca.objects.all()}
-    return render (request, 
-                    template_name='PadelApp/marca.html', 
-                    context=contexto)
-
-
-
-
-
-
-
-@login_required
-def crear_marca(request):
-    if request.method == "POST":
-        formulario = MarcaForm(request.POST)
-
-        if formulario.is_valid():
-            data = formulario.cleaned_data  
-            nombre = data["nombre"]
-            origen = data["origen"]
-            marca = Marca(nombre=nombre, origen=origen)
-            marca.save()  
-
-            url_exitosa = reverse('listar_marcas')  
-            return redirect(url_exitosa)
-    else: 
-        formulario = MarcaForm()
-    http_response = render(
-        request=request,
-        template_name='PadelApp/crear_marca.html',
-        context={'formulario': formulario}
-    )
-    return http_response
-
-
-def buscar_marca(request):
-     if request.method == "POST":
-        data = request.POST
-        busqueda = data["busqueda"]
-        marcas = Marca.objects.filter(nombre__icontains=busqueda)
-        contexto = {
-            "marcas": marcas
-        }
-        http_response = render(
-            request=request,
-            template_name='Padelapp/marca.html',
-            context=contexto,
-        )
-        return http_response"""
 
 

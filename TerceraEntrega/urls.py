@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from PadelApp.views import inicio
 
 urlpatterns = [
+    path("", inicio, name="inicio" ),
     path('admin/', admin.site.urls),
     path("PadelApp/", include("PadelApp.urls")),
     path("Usuarios/", include("Usuarios.urls")),

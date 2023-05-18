@@ -34,13 +34,13 @@
             </td>
 
             <td>
-              {% if user == marca.creador %}
-                <a href = "{% url "editar_marca" marca.id %}">Editar</a>
+              {% if perms.marca.change_circuito %}
+                <li class="nav-item"><a class="nav-link" href={% url "editar_marca" marca.id %}>| Editar Marca |</a></li>
               {% endif %}
             </td>
             <td>
-              {% if user == marca.creador %}
-                <a href = "{% url "borrar_marca" marca.id %}">
+              {% if perms.marca.delete_marca %}
+               <li class="nav-item"><a class="nav-link" href = "{% url "borrar_marca" marca.id %}">
                   <i class="bi bi-trash"></i>
               {% endif %}
             </td>

@@ -4,8 +4,10 @@
 <section>
     <div>
       <h1>Marcas</h1>
+      {% if perms.marca.add_marca %}
       <a href="{% url "crear_marca" %}">Crear marca</a>
       <br><br>
+      {% endif %}
       <form action="{% url 'buscar_marca' %}" method="get">
         {% csrf_token %}
         <input type="text" name="q">
@@ -34,7 +36,7 @@
             </td>
 
             <td>
-              {% if perms.marca.change_circuito %}
+              {% if perms.marca.change_marca %}
                 <li class="nav-item"><a class="nav-link" href={% url "editar_marca" marca.id %}>| Editar Marca |</a></li>
               {% endif %}
             </td>

@@ -36,8 +36,10 @@ class SearchJugador(ListView):
         return object_list  
     
 
-class JugadorCreateView(LoginRequiredMixin, CreateView):
+class JugadorCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Jugadores
+    permission_required = "jugadores.add_jugador"
+    template_name = "PadelApp/jugadores_form.html"
     fields = ["nombre", "apellido", "nacionalidad", "edad","circuito",  "marca"]
     success_url = reverse_lazy("listar_jugadores")
 
@@ -51,13 +53,17 @@ class JugadorDetailView(DetailView):
     success_url = reverse_lazy('listar_jugadores')
 
 
-class JugadorUpdateView(LoginRequiredMixin, UpdateView):
+class JugadorUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Jugadores
+    permission_required = "jugadores.change_jugador"
+    template_name = "PadelApp/jugadores_form.html"
     fields = ("nombre", "apellido", "nacionalidad", "edad","circuito",  "marca" )
     success_url = reverse_lazy('listar_jugadores')
 
-class JugadorDeleteView(LoginRequiredMixin, DeleteView):
+class JugadorDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Jugadores
+    permission_required = "jugadores.delete_jugador"
+    template_name = "PadelApp/jugadores_confirm_delete.html"
     success_url = reverse_lazy('listar_jugadores')
 
 
@@ -77,8 +83,10 @@ class SearchCircuito(ListView):
         object_list = Circuito.objects.filter(nombre__icontains=query)
         return object_list
 
-class CircuitoCreateView(LoginRequiredMixin, CreateView):
+class CircuitoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Circuito
+    permission_required = "circuito.add_circuito"
+    template_name = "PadelApp/circuito_form.html"
     fields = ['nombre', 'alcance', 'ranking_premios', 'cant_torneos']
     success_url = reverse_lazy('listar_circuitos')
 
@@ -90,13 +98,17 @@ class CircuitoDetailView(DetailView):
     model = Circuito
     success_url = reverse_lazy('listar_circuitos')
 
-class CircuitoUpdateView(LoginRequiredMixin, UpdateView):
+class CircuitoUpdateView(LoginRequiredMixin, PermissionRequiredMixin , UpdateView):
     model = Circuito
+    permission_required = "circuito.change_circuito"
+    template_name = "PadelApp/circuito_form.html"
     fields = ( "nombre", "alcance", "ranking_premios", "cant_torneos" )
     success_url = reverse_lazy('listar_circuitos')
 
-class CircuitoDeleteView(LoginRequiredMixin, DeleteView):
+class CircuitoDeleteView(LoginRequiredMixin, PermissionRequiredMixin , DeleteView):
     model = Circuito
+    permission_required = "circuito.delete_circuito"
+    template_name = "PadelApp/circuito_confirm_delete.html" 
     success_url = reverse_lazy('listar_circuitos')
 
 

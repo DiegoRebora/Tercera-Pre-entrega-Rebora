@@ -4,8 +4,10 @@
 <section>
     <div>
       <h1>Jugadores</h1>
+      {% if perms.jugadores.add_jugador %}
       <a href="{% url "crear_jugador" %}">Crear jugador</a>
       <br><br>
+      {% endif %}
       <form action="{% url 'buscar_jugador' %}" method="get">
         {% csrf_token %}
         <input type="text" name="q">
@@ -34,12 +36,12 @@
             </td>
 
             <td>
-              {% if user == jugador.creador %}
+              {% if perms.jugadores.change_jugador %}
                 <a href = "{% url "editar_jugador" jugador.id %}">Editar</a>
               {% endif %}
             </td>
             <td>
-              {% if user == jugador.creador %}
+              {% if perms.jugadores.delete_jugador %}
                 <a href = "{% url "borrar_jugador" jugador.id %}">
                   <i class="bi bi-trash"></i>
               {% endif %}

@@ -1,0 +1,28 @@
+{% extends "PadelApp/base2.html" %}
+
+{% block contenido %}
+
+<p>
+  <strong>Nombre:</strong> {{object.nombre}}
+</p>
+<p>
+  <strong>Apellido:</strong> {{object.apellido}}
+</p>
+<p>
+  <strong>Nacionalidad:</strong> {{object.nacionalidad}}
+</p>
+<p>
+  <strong>Edad:</strong> {{object.edad}}
+</p>
+<p>
+    <strong>Ciurcuito:</strong> {{object.circuito}}
+</p>
+<p>
+    <strong>Marca:</strong> {{object.marca}}
+
+<br>
+<br>
+<br>
+<a href="{% url 'listar_jugadores' %}">Volver lista</a>
+
+{% endblock contenido %}

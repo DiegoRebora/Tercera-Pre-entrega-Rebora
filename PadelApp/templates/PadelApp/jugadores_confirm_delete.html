@@ -5,12 +5,13 @@
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="Guardar" />
+  <p>¿Estas seguro deseas eliminar {{object}}?</p>
+  <input type="submit" value="Eliminar" />
 </form>
 
 <br>
 <br>
 <br>
-<a href="{% url 'listar_circuitos' %}">Volver lista</a>
+<a href="{% url 'listar_jugadores' %}">Volver lista</a>
 
 {% endblock contenido %}

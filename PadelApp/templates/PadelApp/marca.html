@@ -6,17 +6,49 @@
       <h1>Marcas</h1>
       <a href="{% url "crear_marca" %}">Crear marca</a>
       <br><br>
-      <form action="{% url 'buscar_marca' %}" method="post">
+      <form action="{% url 'buscar_marca' %}" method="get">
         {% csrf_token %}
-        <input type="text" name="busqueda">
+        <input type="text" name="q">
         <input type="submit" value="Buscar por nombre">
       </form>
-      <br>
-      <ul>
-      {% for marca in marcas %}
-        <li>{{ marca.nombre }}</li>
-      {% endfor %}
-      </ul>
+      
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Origen</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          {% for marca in object_list %}
+          <tr>
+            <td>{{ marca.id }}</td>
+            <td>{{ marca.nombre }}</td>
+            <td>{{ marca.origen }}</td>
+            <td>
+              
+                <a href = "{% url "detalle_marca" marca.id %}">Ver</a>
+                  
+            </td>
+
+            <td>
+              {% if user == marca.creador %}
+                <a href = "{% url "editar_marca" marca.id %}">Editar</a>
+              {% endif %}
+            </td>
+            <td>
+              {% if user == marca.creador %}
+                <a href = "{% url "borrar_marca" marca.id %}">
+                  <i class="bi bi-trash"></i>
+              {% endif %}
+            </td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </section>
 {% endblock contenido %}

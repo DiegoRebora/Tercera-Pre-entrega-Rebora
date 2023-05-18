@@ -6,9 +6,9 @@
       <h1>Circuitos</h1>
       <a href="{% url "crear_circuito" %}">Crear circuito</a>
       <br><br>
-      <form action="{% url 'buscar_circuito' %}" method="post">
+      <form action="{% url 'buscar_circuito' %}" method="get">
         {% csrf_token %}
-        <input type="text" name="busqueda">
+        <input type="text" name="q">
         <input type="submit" value="Buscar por nombre">
       </form>
       
@@ -28,17 +28,21 @@
             <td>{{ circuito.nombre }}</td>
             <td>{{ circuito.alcance }}</td>
             <td>
+              
                 <a href = "{% url "detalle_circuito" circuito.id %}">Ver</a>
                   
             </td>
 
             <td>
+              {% if user == circuito.creador %}
                 <a href = "{% url "editar_circuito" circuito.id %}">Editar</a>
-              
+              {% endif %}
             </td>
             <td>
+              {% if user == circuito.creador %}
                 <a href = "{% url "borrar_circuito" circuito.id %}">
                   <i class="bi bi-trash"></i>
+              {% endif %}
             </td>
 
           </tr>

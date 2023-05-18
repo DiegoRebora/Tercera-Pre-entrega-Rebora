@@ -6,13 +6,12 @@
       <h1>Jugadores</h1>
       <a href="{% url "crear_jugador" %}">Crear jugador</a>
       <br><br>
-      <form action="{% url 'buscar_jugador' %}" method="post">
+      <form action="{% url 'buscar_jugador' %}" method="get">
         {% csrf_token %}
-        <input type="text" name="busqueda">
+        <input type="text" name="q">
         <input type="submit" value="Buscar por apellido">
       </form>
-      <br>
-
+      
       <table class="table">
         <tbody>
           <tr>
@@ -20,28 +19,36 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th></th>
+            <th></th>
+            <th></th>
           </tr>
-          {% for jugador in jugadores %}
+          {% for jugador in object_list %}
           <tr>
             <td>{{ jugador.id }}</td>
             <td>{{ jugador.nombre }}</td>
             <td>{{ jugador.apellido }}</td>
             <td>
-                <a href = "{% url "editar_jugadores" jugador.id %}">Editar</a>
- 
+              
+                <a href = "{% url "detalle_jugador" jugador.id %}">Ver</a>
+                  
+            </td>
+
+            <td>
+              {% if user == jugador.creador %}
+                <a href = "{% url "editar_jugador" jugador.id %}">Editar</a>
+              {% endif %}
             </td>
             <td>
-                <form action="{% url "borrar_jugadores" jugador.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="eliminar"/>
-                </form
+              {% if user == jugador.creador %}
+                <a href = "{% url "borrar_jugador" jugador.id %}">
+                  <i class="bi bi-trash"></i>
+              {% endif %}
             </td>
 
           </tr>
           {% endfor %}
         </tbody>
       </table>
-   
     </div>
   </section>
 {% endblock contenido %}

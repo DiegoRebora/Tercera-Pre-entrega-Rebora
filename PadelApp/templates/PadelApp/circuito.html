@@ -37,12 +37,12 @@
 
             <td>
               {% if perms.circuito.change_circuito %}
-                <li class="nav-item"><a class="nav-link" href={% url "editar_circuito" circuito.id %}>| Editar Circuito |</a></li>
+                <a href={% url "editar_circuito" circuito.id %}> Editar Circuito </a>
               {% endif %}
             </td>
             <td>
               {% if perms.circuito.delete_circuito %}
-               <li class="nav-item"><a class="nav-link" href = "{% url "borrar_circuito" circuito.id %}">
+               <a href = "{% url "borrar_circuito" circuito.id %}"></a>
                   <i class="bi bi-trash"></i>
               {% endif %}
             </td>

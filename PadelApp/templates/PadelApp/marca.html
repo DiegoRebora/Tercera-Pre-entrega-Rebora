@@ -37,12 +37,12 @@
 
             <td>
               {% if perms.marca.change_marca %}
-                <li class="nav-item"><a class="nav-link" href={% url "editar_marca" marca.id %}>| Editar Marca |</a></li>
+              <a href={% url "editar_marca" marca.id %}> Editar Marca </a>
               {% endif %}
             </td>
             <td>
               {% if perms.marca.delete_marca %}
-               <li class="nav-item"><a class="nav-link" href = "{% url "borrar_marca" marca.id %}">
+               <a href = "{% url "borrar_marca" marca.id %}"></a>
                   <i class="bi bi-trash"></i>
               {% endif %}
             </td>

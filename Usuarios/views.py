@@ -4,11 +4,12 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 
-from Usuarios.forms import UserRegisterForm, UserUpdateForm
+from Usuarios.forms import UserRegisterForm, UserUpdateForm, AvatarFormulario
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
+from Usuarios.models import Avatar
 
 from Usuarios.forms import UserRegisterForm
 
@@ -65,4 +66,18 @@ class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
 
    def get_object(self, queryset=None):
        return self.request.user
+
+def agregar_avatar(request):
+  if request.method == "POST":
+      formulario = AvatarFormulario(request.POST, request.FILES) 
+
+      if formulario.is_valid():
+          avatar = formulario.save()
+          avatar.user = request.user
+          avatar.save()
+          url_exitosa = reverse('inicio')
+          return redirect(url_exitosa)
+  else: 
+      formulario = AvatarFormulario()
+  return render(request, 'Usuarios/agregar_avatar.html', {'form': formulario})
 

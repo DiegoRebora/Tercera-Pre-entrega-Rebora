@@ -6,9 +6,9 @@
     
       <br>
       <h1>BIENVENIDO {{user.first_name}}</h1>
-      <img src="{{ user.avatar.imagen.url}}" />
-
-    
+      {% if user.is_authenticated %}
+      <img src="{{ user.avatar.imagen.url }}" style="width: 150px; height: 200px;">
+      {% endif %}
     </div>
   </section>
 {% endblock contenido %}

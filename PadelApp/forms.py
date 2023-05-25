@@ -1,4 +1,7 @@
 from django import forms
+from .models import Comentario
+from django.forms.widgets import ClearableFileInput
+
 
 class JugadoresForm(forms.Form):
     nombre = forms.CharField(required=True, max_length=64) 
@@ -17,3 +20,10 @@ class CircuitoForm(forms.Form):
 class MarcaForm(forms.Form):
     nombre = forms.CharField(required=True, max_length=64)
     origen = forms.CharField(required=True, max_length=64)
+
+class ImageWidget(ClearableFileInput):
+    template_name = 'widgets/image_widget.html'
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['titulo', 'texto']

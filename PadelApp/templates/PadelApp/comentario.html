@@ -1,0 +1,63 @@
+{% extends "PadelApp/base2.html" %}
+
+{% block contenido %}
+<section>
+    <div>
+      <h1>Comentario</h1>
+      {% if user.is_authenticated  %}
+      <a href="{% url "crear_comentario" %}"style="color:red;">Crear comentario</a>
+      <br><br>
+      {% endif %}
+      <form action="{% url 'buscar_comentario_titulo' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="q">
+        <input type="submit" value="Buscar por titulo">
+      </form>
+      <form action="{% url 'buscar_comentario_texto' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="q">
+        <input type="submit" value="Buscar en el texto">
+      </form>
+      
+      <table class="table">
+        <tbody>
+          <tr>
+            <th style="color:red">Usuario</th>
+            <th style="color:red">Titulo</th>
+            <th style="color:red"> Leer comentario</th>
+            <th></th>
+          </tr>
+          {% for comentario in object_list %}
+          <tr>
+            <td style="color:white">{{ comentario.usuario }}</td>
+            <td style="color:white">{{ comentario.titulo }}</td>
+            
+            <td>
+              
+                <a href = "{% url "detalle_comentario" comentario.id %}">Leer más</a>
+                  
+            </td>
+
+            <td>
+              {% if comentario.usuario == request.user %}
+                <a href={% url "editar_comentario" comentario.id %}> Editar comentario </a>
+              {% endif %}
+            </td>
+            <td>
+                {% if comentario.usuario == request.user %}
+               <a href = "{% url "borrar_comentario" comentario.id %}">
+                  <i class="bi bi-trash"></i>
+              {% endif %}
+            </td>
+
+          </tr>
+          {% empty %}
+          <tr>
+            <td style="color:red" colspan="5">No hay resultados para la búsqueda.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock contenido %}

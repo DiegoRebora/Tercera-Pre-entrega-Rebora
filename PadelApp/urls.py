@@ -3,7 +3,8 @@ from django.urls import path
 from PadelApp.views import inicio, MarcaCreateView, MarcaListView, MarcaUpdateView, MarcaDeleteView,  \
     MarcaDetailView, SearchMarca ,  CircuitoCreateView, CircuitoUpdateView, CircuitoDeleteView, CircuitoDetailView, \
     CircuitoListView, SearchCircuito, JugadorCreateView, JugadorDetailView, JugadorListView, \
-    JugadorUpdateView, SearchJugador, JugadorDeleteView
+    JugadorUpdateView, SearchJugador, JugadorDeleteView, ComentarioCreateView, ComentarioListView, \
+    ComentarioDetailView, ComentarioDeleteView, ComentarioUpdateView, SearchComentarioTitulo, SearchComentarioTexto
 
     
     
@@ -34,4 +35,13 @@ urlpatterns = [
     path("editar-circuitos/<int:pk>/", CircuitoUpdateView.as_view(), name="editar_circuito" ),
     path("borrar-circuitos/<int:pk>/", CircuitoDeleteView.as_view(), name="borrar_circuito" ),
     path("buscar-circuitos/", SearchCircuito.as_view(), name="buscar_circuito" ),
+    
+    #URLS DE COMENTARIOS
+    path("crear_comentario/", ComentarioCreateView.as_view(), name="crear_comentario" ),
+    path("listar_comentarios", ComentarioListView.as_view(), name="listar_comentarios" ),
+    path("detalle_comentario/<int:pk>/", ComentarioDetailView.as_view(), name="detalle_comentario" ),
+    path("editar_comentario/<int:pk>/",  ComentarioUpdateView.as_view(), name="editar_comentario" ),
+    path("borrar_comentario/<int:pk>/", ComentarioDeleteView.as_view(), name="borrar_comentario" ),
+    path("buscar_comentario_titulo/", SearchComentarioTitulo.as_view(), name="buscar_comentario_titulo" ),
+    path("buscar_comentario_texto/", SearchComentarioTexto.as_view(), name="buscar_comentario_texto" ),
 ]

@@ -5,7 +5,8 @@
     <div>
       <h1>Jugadores</h1>
       {% if perms.jugadores.add_jugador %}
-      <a href="{% url "crear_jugador" %}">Crear jugador</a>
+      <a href="{% url "crear_jugador" %}" style="color: red;">Crear jugador</a>
+
       <br><br>
       {% endif %}
       <form action="{% url 'buscar_jugador' %}" method="get">
@@ -17,24 +18,21 @@
       <table class="table">
         <tbody>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th style="color:red"> ID</th>
+            <th style="color:red">Nombre</th>
+            <th style="color:red">+ Info</th>
+            <th style="color:red"></th>
+            <th style="color:red"></th>
           </tr>
           {% for jugador in object_list %}
           <tr>
-            <td>{{ jugador.id }}</td>
-            <td>{{ jugador.nombre }}</td>
-            <td>{{ jugador.apellido }}</td>
-            <td>
+            <td style="color: white">{{ jugador.id }}</td>
+            <td style="color: white">{{ jugador.nombre }}, {{ jugador.apellido }}</td>
+            <td style="color: white">
               
-                <a href = "{% url "detalle_jugador" jugador.id %}">Ver</a>
+                <a href = "{% url "detalle_jugador" jugador.id %}">Leer más</a>
                   
             </td>
-
             <td>
               {% if perms.jugadores.change_jugador %}
                 <a href = "{% url "editar_jugador" jugador.id %}">Editar</a>
@@ -47,6 +45,10 @@
               {% endif %}
             </td>
 
+          </tr>
+          {% empty %}
+          <tr>
+            <td style="color:red" colspan="5">No hay resultados para la búsqueda.</td>
           </tr>
           {% endfor %}
         </tbody>

@@ -1,14 +1,16 @@
 {% extends "PadelApp/base2.html" %}
 {% block contenido %}
 <section>
-    <div>
-      <h1>TODO EL PADEL EN UN SOLO LUGAR</h1>
-    
-      <br>
-      <h1>BIENVENIDO {{user.first_name}}</h1>
-      {% if user.is_authenticated %}
-      <img src="{{ user.avatar.imagen.url }}" style="width: 150px; height: 200px;">
-      {% endif %}
-    </div>
-  </section>
+  <div>
+    <h1>TODO EL PADEL EN UN SOLO LUGAR</h1>
+    <br>
+    <h1 style="text-transform: uppercase;">BIENVENID@,   <span style="color: red">{{user.first_name}}</span></h1>
+    {% if user.is_authenticated %}
+      <img src="{{ user.avatar.imagen.url }}" style="width: 150px; height: 150px; border-radius: 50%; position: absolute; top: 270px; right: 550px;">
+    {% endif %}
+  </div>
+</section>
+
+
+
 {% endblock contenido %}

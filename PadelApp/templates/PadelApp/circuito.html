@@ -5,7 +5,7 @@
     <div>
       <h1>Circuitos</h1>
       {% if perms.circuito.add_circuito %}
-      <a href="{% url "crear_circuito" %}">Crear circuito</a>
+      <a href="{% url "crear_circuito" %}" style="color:red;">Crear circuito</a>
       <br><br>
       {% endif %}
       <form action="{% url 'buscar_circuito' %}" method="get">
@@ -17,24 +17,23 @@
       <table class="table">
         <tbody>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Alcance</th>
-            <th></th>
-            <th></th>
+            <th style="color:red">ID</th>
+            <th style="color:red">Nombre</th>
+            <th style="color:red"> Alcance</th>
+            <th style="color:red">+ Info</th>
+            <th style="color:red"></th>
             <th></th>
           </tr>
           {% for circuito in object_list %}
           <tr>
-            <td>{{ circuito.id }}</td>
-            <td>{{ circuito.nombre }}</td>
-            <td>{{ circuito.alcance }}</td>
+            <td style="color:white">{{ circuito.id }}</td>
+            <td style="color:white">{{ circuito.nombre }}</td>
+            <td style="color:white">{{ circuito.alcance }}</td>
             <td>
               
                 <a href = "{% url "detalle_circuito" circuito.id %}">Ver</a>
                   
             </td>
-
             <td>
               {% if perms.circuito.change_circuito %}
                 <a href={% url "editar_circuito" circuito.id %}> Editar Circuito </a>
@@ -42,11 +41,14 @@
             </td>
             <td>
               {% if perms.circuito.delete_circuito %}
-               <a href = "{% url "borrar_circuito" circuito.id %}"></a>
+                <a href = "{% url "borrar_circuito" circuito.id %}">
                   <i class="bi bi-trash"></i>
               {% endif %}
             </td>
-
+          </tr>
+          {% empty %}
+          <tr>
+            <td style="color:red" colspan="5">No hay resultados para la búsqueda.</td>
           </tr>
           {% endfor %}
         </tbody>

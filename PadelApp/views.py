@@ -5,10 +5,10 @@ from datetime import datetime
 from typing import Dict
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.decorators import login_required
-from PadelApp.models import Jugadores, Circuito, Marca
-from PadelApp.forms import JugadoresForm, CircuitoForm, MarcaForm
-
+from PadelApp.models import Jugadores, Circuito, Marca, Comentario
+from PadelApp.forms import JugadoresForm, CircuitoForm, MarcaForm, ComentarioForm
+from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 ## VISTAS DE INICIO, VER CUAL Q
@@ -82,6 +82,9 @@ class SearchCircuito(ListView):
         query = self.request.GET.get('q')
         object_list = Circuito.objects.filter(nombre__icontains=query)
         return object_list
+    
+def about_me(request):
+    return render(request, '´PadelApp/about_me.html')
 
 class CircuitoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Circuito
@@ -160,4 +163,67 @@ class MarcaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('listar_marcas')
 
 
+#VISTAS COMENTARIO
 
+
+
+
+class ComentarioCreateView(LoginRequiredMixin, CreateView):
+    model = Comentario
+    fields = ['titulo', 'texto', 'imagen']
+    template_name = 'Padelapp/comentario_form.html'
+    
+    success_url = reverse_lazy('listar_comentarios')
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+
+
+
+class ComentarioListView(ListView):
+    model = Comentario
+    template_name = 'PadelApp/comentario.html'
+
+
+class ComentarioDetailView(DetailView):
+    model = Comentario
+    success_url = reverse_lazy('listar_comentarios')
+
+class ComentarioUpdateView(LoginRequiredMixin, UpdateView):
+    model = Comentario
+    fields = ['titulo', 'texto', 'imagen']
+    template_name = 'PadelApp/comentario_form.html'
+    success_url = reverse_lazy('listar_comentarios')
+
+class ComentarioDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comentario
+    template_name = 'PadelApp/comentario_confirm_delete.html'
+    success_url = reverse_lazy('listar_comentarios')
+
+class SearchComentarioTitulo(ListView):
+    model = Comentario
+    template_name = 'PadelApp/comentario.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Comentario.objects.filter(titulo__icontains=query)
+        return object_list
+
+
+
+class SearchComentarioTexto(ListView):
+    model = Comentario
+    template_name = 'PadelApp/comentario.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Comentario.objects.filter(texto__icontains=query)
+        return object_list
+
+
+
+##FALTA LA VISTA DE BUSQUEDA DE COMENTARIOS, PODEMOS HACER UN PAR, POR USUARIO Y POR ICONTAIN, GENERAL. 
+## VER COMO ESTÁN HECHOS EL RESTO, QUE ESTÁ PASANDO AHI. 
+## VER PORQUE NO ESTOY PUDIENDO BORRAR. 

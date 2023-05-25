@@ -1,0 +1,22 @@
+{% extends "PadelApp/base2.html" %}
+{% block contenido %}
+
+<p>
+  <strong>Titulo</strong> {{object.titulo}}
+</p>
+<p>
+  <strong>Texto:</strong> {{object.texto}}
+</p>
+
+<p>
+  <strong>Creado:</strong> {{object.fecha_creacion}}
+</p>
+<p>
+  <strong>Usuario</strong> {{object.usuario}}
+</p>
+<br>
+<br>
+<br>
+<a href="{% url 'listar_comentarios' %}">Volver lista</a>
+
+{% endblock contenido %}

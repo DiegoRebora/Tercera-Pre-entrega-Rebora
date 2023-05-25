@@ -67,17 +67,41 @@ class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
    def get_object(self, queryset=None):
        return self.request.user
 
+
+"""def agregar_avatar(request):
+    if request.method == 'POST':
+        form = AvatarFormulario(request.POST, request.FILES)
+        if form.is_valid():
+            avatar, created = Avatar.objects.get_or_create(user=request.user)
+
+            # Verificar si se ha cargado un archivo de imagen en el formulario
+            if form.cleaned_data['imagen']:
+                avatar.imagen = form.cleaned_data['imagen']
+            else:
+                # Asignar una imagen predeterminada si no se ha cargado ninguna imagen
+                avatar.imagen = 'static/pame.jpg'
+                print(avatar.imagen)
+
+            avatar.save()
+            return redirect('inicio')
+    else:
+        form = AvatarFormulario()
+    return render(request, 'Usuarios/agregar_avatar.html', {'form': form})
+"""
 def agregar_avatar(request):
-  if request.method == "POST":
-      formulario = AvatarFormulario(request.POST, request.FILES) 
-
-      if formulario.is_valid():
-          avatar = formulario.save()
-          avatar.user = request.user
-          avatar.save()
-          url_exitosa = reverse('inicio')
-          return redirect(url_exitosa)
-  else: 
-      formulario = AvatarFormulario()
-  return render(request, 'Usuarios/agregar_avatar.html', {'form': formulario})
-
+    if request.method == 'POST':
+        form = AvatarFormulario(request.POST, request.FILES)
+        if form.is_valid():
+            avatar, created = Avatar.objects.get_or_create(user=request.user)
+            # Verificar si se ha cargado un archivo de imagen en el formulario
+            if form.cleaned_data['imagen']:
+                avatar.imagen = form.cleaned_data['imagen']
+            else:
+                # Asignar una imagen predeterminada si no se ha cargado ninguna imagen
+                avatar.imagen = 'default_avatar.jpg'
+                print(avatar.imagen)
+            avatar.save()
+            return redirect('inicio')
+    else:
+        form = AvatarFormulario()
+    return render(request, 'Usuarios/agregar_avatar.html', {'form': form})

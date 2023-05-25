@@ -5,7 +5,7 @@
     <div>
       <h1>Marcas</h1>
       {% if perms.marca.add_marca %}
-      <a href="{% url "crear_marca" %}">Crear marca</a>
+      <a href="{% url "crear_marca" %}" style="color: red;">Crear marca</a>
       <br><br>
       {% endif %}
       <form action="{% url 'buscar_marca' %}" method="get">
@@ -17,24 +17,21 @@
       <table class="table">
         <tbody>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Origen</th>
-            <th></th>
+            <th style="color:red">ID</th>
+            <th style="color:red">Nombre</th>
+            <th style="color:red">+ Info</th>
             <th></th>
             <th></th>
           </tr>
           {% for marca in object_list %}
           <tr>
-            <td>{{ marca.id }}</td>
-            <td>{{ marca.nombre }}</td>
-            <td>{{ marca.origen }}</td>
+            <td style="color:white">{{ marca.id }}</td>
+            <td style="color:white">{{ marca.nombre }}</td>
             <td>
               
-                <a href = "{% url "detalle_marca" marca.id %}">Ver</a>
+                <a href = "{% url "detalle_marca" marca.id %}">Leer más</a>
                   
             </td>
-
             <td>
               {% if perms.marca.change_marca %}
               <a href={% url "editar_marca" marca.id %}> Editar Marca </a>
@@ -42,11 +39,15 @@
             </td>
             <td>
               {% if perms.marca.delete_marca %}
-               <a href = "{% url "borrar_marca" marca.id %}"></a>
+                <a href = "{% url "borrar_marca" marca.id %}">
                   <i class="bi bi-trash"></i>
               {% endif %}
             </td>
 
+          </tr>
+          {% empty %}
+          <tr>
+            <td style="color:red" colspan="5">No hay resultados para la búsqueda.</td>
           </tr>
           {% endfor %}
         </tbody>

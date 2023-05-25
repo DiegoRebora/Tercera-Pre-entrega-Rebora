@@ -20,11 +20,8 @@
         <style>
             body {
                 height: 100vh;
-                background-image: url('/static/cancha.jpeg');
                 background-size: cover;
                 background-position: center;
-                color: white;
-                font-weight: bold;
             }
             
             section {
@@ -32,7 +29,6 @@
             }
             #main {
                 min-height: calc(70vh - 70px); 
-
             }
         </style>
     </head>
@@ -47,42 +43,30 @@
                 <a class="navbar-brand" href="{% url 'listar_marcas' %}">Marcas</a>
                 <a class="navbar-brand" href="{% url 'listar_comentarios' %}">Comentarios</a>
                 {% if user.is_authenticated %}
-                <div class="dropdown "  >
-                    <button
-                        class="btn btn-ligth btn-sm dropdown-toggle "
-                        type="button"
-                         data-bs-toggle="dropdown"
-                         aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                          <div style="display: inline-flex;">
-                            {% if user.avatar.imagen.url %}      
-                                <img src="{{ user.avatar.imagen.url }}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
-                
-                            {% else %} 
-                                <img src="{%static 'default_avatar.jpg'%}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
-                           
-                            {% endif %}
-                          </div>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li>
-                                <a class="dropdown-item" href="{% url 'editar_usuario' %}">Editar perfil</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'agregar_avatar' %}">Agregar/Editar Avatar</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'logout' %}"><strong>Cerrar Sesión</strong></a>
-                            </li>
-                        </ul>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div style="display: inline-flex;">
+                            <img src="{{ user.avatar.imagen.url }}" alt="User Avatar" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                            <span>{{ user.username }}</span>
+                        </div>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'editar_usuario' %}">Editar perfil</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'agregar_avatar' %}">Agregar/Editar Avatar</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'logout' %}"><strong>Cerrar Sesión</strong></a>
+                        </li>
+                    </ul>
                     </div>
+                </div>
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'login' %}">Iniciar sesión</a>
                 <a class="btn btn-success" href="{% url 'registro' %}">Crear nueva cuenta</a>
                 {% endif %}
-                
-
             </div>
         </nav>
  
@@ -90,7 +74,6 @@
             </div>
         </nav>
 
-        <section style="padding: 4rem 3rem; background-image: url('/static/cancha.jpeg');">
             <div id="main">
             {% block contenido %}
                 ...

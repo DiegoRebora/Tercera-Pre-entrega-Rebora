@@ -6,7 +6,7 @@ from Usuarios.models import Avatar
 
 
 class UserRegisterForm(UserCreationForm):
-   # Esto es un ModelForm
+   
    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
    password2 = forms.CharField(label='Repetir contraseña', widget=forms.PasswordInput)
 
@@ -51,11 +51,6 @@ class UserUpdateForm(forms.ModelForm):
 
         return user
 
-"""class UserUpdateForm(forms.ModelForm):
-
-   class Meta:
-       model = User
-       fields = ['last_name', 'first_name', 'email']"""
 
 class AvatarFormulario(forms.ModelForm):
 

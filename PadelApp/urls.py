@@ -10,8 +10,6 @@ from PadelApp.views import inicio, MarcaCreateView, MarcaListView, MarcaUpdateVi
     
     
 urlpatterns = [
-    path("", inicio, name="inicio" ),
-
     #URLS CLASES DE VISTA MARCAS
     path("marcas/", MarcaListView.as_view(), name="listar_marcas" ),
     path("crear_marca/", MarcaCreateView.as_view(), name="crear_marca" ),

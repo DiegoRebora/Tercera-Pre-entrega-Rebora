@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 # Create your views here.
 
-## VISTAS DE INICIO, VER CUAL Q
+## VISTAS DE INICIO
 def inicio(request):
     contexto = {}
     return render(
@@ -83,8 +83,7 @@ class SearchCircuito(ListView):
         object_list = Circuito.objects.filter(nombre__icontains=query)
         return object_list
     
-def about_me(request):
-    return render(request, '´PadelApp/about_me.html')
+
 
 class CircuitoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Circuito
@@ -170,7 +169,7 @@ class MarcaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class ComentarioCreateView(LoginRequiredMixin, CreateView):
     model = Comentario
-    fields = ['titulo', 'texto', 'imagen']
+    fields = ['titulo', 'texto']
     template_name = 'Padelapp/comentario_form.html'
     
     success_url = reverse_lazy('listar_comentarios')
@@ -193,7 +192,7 @@ class ComentarioDetailView(DetailView):
 
 class ComentarioUpdateView(LoginRequiredMixin, UpdateView):
     model = Comentario
-    fields = ['titulo', 'texto', 'imagen']
+    fields = ['titulo', 'texto']
     template_name = 'PadelApp/comentario_form.html'
     success_url = reverse_lazy('listar_comentarios')
 
@@ -224,6 +223,4 @@ class SearchComentarioTexto(ListView):
 
 
 
-##FALTA LA VISTA DE BUSQUEDA DE COMENTARIOS, PODEMOS HACER UN PAR, POR USUARIO Y POR ICONTAIN, GENERAL. 
-## VER COMO ESTÁN HECHOS EL RESTO, QUE ESTÁ PASANDO AHI. 
-## VER PORQUE NO ESTOY PUDIENDO BORRAR. 
+

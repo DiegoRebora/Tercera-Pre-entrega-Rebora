@@ -18,7 +18,7 @@ def registro(request):
        formulario = UserRegisterForm(request.POST)
 
        if formulario.is_valid():
-           formulario.save()  # Esto lo puedo usar porque es un model form
+           formulario.save()  
            url_exitosa = reverse('inicio')
            return redirect(url_exitosa)
    else:  # GET
@@ -39,14 +39,14 @@ def login_view(request):
            usuario = data.get('username')
            password = data.get('password')
            user = authenticate(username=usuario, password=password)
-           # user puede ser un usuario o None
+           
            if user:
                login(request=request, user=user)
                if next_url:
                    return redirect(next_url)
                url_exitosa = reverse('inicio')
                return redirect(url_exitosa)
-   else:  # GET
+   else:  
        form = AuthenticationForm()
    return render(
        request=request,
@@ -62,43 +62,23 @@ class CustomLogoutView(LogoutView):
 class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
    form_class = UserUpdateForm
    success_url = reverse_lazy('inicio')
-   template_name = 'Usuarios/formulario_perfil.html' ##RECORDAR CAMBIAR ESTE TEMPLATE
+   template_name = 'Usuarios/formulario_perfil.html' 
 
    def get_object(self, queryset=None):
        return self.request.user
 
 
-"""def agregar_avatar(request):
-    if request.method == 'POST':
-        form = AvatarFormulario(request.POST, request.FILES)
-        if form.is_valid():
-            avatar, created = Avatar.objects.get_or_create(user=request.user)
-
-            # Verificar si se ha cargado un archivo de imagen en el formulario
-            if form.cleaned_data['imagen']:
-                avatar.imagen = form.cleaned_data['imagen']
-            else:
-                # Asignar una imagen predeterminada si no se ha cargado ninguna imagen
-                avatar.imagen = 'static/pame.jpg'
-                print(avatar.imagen)
-
-            avatar.save()
-            return redirect('inicio')
-    else:
-        form = AvatarFormulario()
-    return render(request, 'Usuarios/agregar_avatar.html', {'form': form})
-"""
 def agregar_avatar(request):
     if request.method == 'POST':
         form = AvatarFormulario(request.POST, request.FILES)
         if form.is_valid():
             avatar, created = Avatar.objects.get_or_create(user=request.user)
-            # Verificar si se ha cargado un archivo de imagen en el formulario
+            
             if form.cleaned_data['imagen']:
                 avatar.imagen = form.cleaned_data['imagen']
             else:
-                # Asignar una imagen predeterminada si no se ha cargado ninguna imagen
-                avatar.imagen = 'default_avatar.jpg'
+                
+                avatar.imagen = 'avatares/default_avatar.jpg'
                 print(avatar.imagen)
             avatar.save()
             return redirect('inicio')
